@@ -1,4 +1,7 @@
 # my_website
 
-#italics
-#bold
+*italics*
+**bold**
+
+Hello world
+
