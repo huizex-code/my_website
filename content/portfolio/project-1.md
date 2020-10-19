@@ -1,0 +1,66 @@
+---
+categories:
+- design
+- development
+client: John Doe
+date: "2019-05-12T12:14:34+06:00"
+description: This is meta description.
+draft: false
+image: images/portfolio/item-1.png
+project_url: https://themefisher.com/
+title: Artwork Design
+---
+
+#### Project
+
+```{r,load_movies, warning=FALSE, message=FALSE}
+
+movies <- read_csv(here::here("data","movies.csv"))
+glimpse(movies)
+
+```
+
+Besides the obvious variables of `title`, `genre`, `director`, `year`, and `duration`, the rest of the variables are as follows:
+
+- `gross` : The gross earnings in the US box office, not adjusted for inflation
+- `budget`: The movie's budget 
+- `cast_facebook_likes`: the number of facebook likes cast memebrs received
+- `votes`: the number of people who voted for (or rated) the movie in IMDB 
+- `reviews`: the number of reviews for that movie
+- `rating`: IMDB average rating 
+
+## Use your data import, inspection, and cleaning skills to answer the following:
+
+- Are there any missing values (NAs)? Are all entries distinct or are there duplicate entries?
+
+--> ANSWER: No missing values
+```{r,skim_movies, warning=FALSE, message=FALSE}
+
+skim(movies)
+
+```
+- Produce a table with the count of movies by genre, ranked in descending order
+
+```{r,one_movies, warning=FALSE, message=FALSE}
+
+most_popular_genre_table <- movies %>%
+  group_by(genre) %>%
+  count(genre) %>%
+  arrange(desc(n))
+most_popular_genre_table
+
+```
+
+- Produce a table with the average gross earning and budget (`gross` and `budget`) by genre. Calculate a variable `return_on_budget` which shows how many $ did a movie make at the box office for each $ of its budget. Ranked genres by this `return_on_budget` in descending order
+
+```{r,two_movies, warning=FALSE, message=FALSE}
+ave_gross_budget <- movies %>%
+  group_by(genre) %>%
+  summarise(ave_gross=mean(gross),ave_budget=mean(budget))
+
+return_on_budget <- ave_gross_budget %>%
+  mutate(return_on_budget=ave_gross/ave_budget) %>%
+  arrange(desc(return_on_budget))
+
+return_on_budget
+```
