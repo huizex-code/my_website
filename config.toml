@@ -1,5 +1,5 @@
 # default configuration
-baseURL = ""https://sara-xiu-website.netlify.app/""
+baseURL = "https://sara-xiu-website.netlify.app/"
 languageCode = "en-us"
 summaryLength = "10"
 theme = "kross-hugo"
